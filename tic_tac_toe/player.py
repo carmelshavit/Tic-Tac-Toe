@@ -9,10 +9,17 @@ class Player:
 
     def __init__(self, is_human: bool, board: Board, marker: Literal['X', 'O']):
         self._marker = marker
-        self.is_human = is_human
+        self._is_human = is_human
         self._board = board
 
     # Works if move is public
+
+    def __eq__(self, other):
+        if self.marker == other.marker:
+            return True
+        else:
+            return False
+
     def change_value(self, new_value: int):
         self.move.value(new_value)  # GOOD
         self.move._value = new_value  # BAD
@@ -69,6 +76,9 @@ class Player:
         self._board.put_value_in_cell(cell_id, self.marker)
 
     def get_computer_move(self, marker) -> int:
+        pass
+
+    def get_computer_move2(self, marker) -> int:
 
         cell_value = self.check_complete_row(marker)
         if cell_value is not None:
@@ -83,7 +93,7 @@ class Player:
         if cell_value is not None:
             return cell_value
 
-    def check_complete_row(self, marker) -> int | None:
+    def check_complete_row(self, marker) -> int | None:  # X
         for idx in range(self.board.SIZE_BOARD):
             row = self.board.get_value_row(idx)
             found_empty_cell = False
@@ -98,24 +108,25 @@ class Player:
                         found_empty_cell = False
                         break
                 found_empty_cell = True
-                cell_id = row_idx
+                cell_id = row_idx  #["X", "X", ""]
 
                 # value is marker or empty, and all values are marker, or up to 1 empty
             if found_empty_cell is True:
                 return cell_id
 
-    def check_complete_column(self, marker) -> bool | None:
+    def check_complete_column(self, marker) -> bool | None:  # 'X'
         for idx_column in range(self.board.SIZE_BOARD):
             col = self.board.get_column(idx_column)
             found_empty_cell = False
             cell_id = None
             for value, col_idx in col:
-                if value not in (marker, self.board.EMPTY_CELL_VALUE):
+                if value not in (marker, self.board.EMPTY_CELL_VALUE):  #'O'
+                    found_empty_cell = False
                     continue
-                elif value is self.board.EMPTY_CELL_VALUE:
+                elif value is self.board.EMPTY_CELL_VALUE:  #' '
                     if found_empty_cell is True:
                         found_empty_cell = False
-                        continue
+                        break
                 found_empty_cell = True
                 cell_id = col_idx
 
@@ -123,10 +134,7 @@ class Player:
             if found_empty_cell is True:
                 return cell_id
 
-
-
     def check_win_diagnose(self) -> bool:
-
         pass
 
     def check_defeat(self) -> bool:
