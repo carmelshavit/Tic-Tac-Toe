@@ -75,8 +75,11 @@ class Player:
             raise ValueError
         self._board.put_value_in_cell(cell_id, self.marker)
 
-    def get_computer_move(self, marker) -> int:
-        pass
+    def get_computer_move(self, cell_id) -> int:
+        if self.board.is_valid_move(cell_id+1):
+            return cell_id + 1
+        else:
+            raise ValueError(f"Invalid move: Cell {cell_id} is not a valid position or is already occupied.")
 
     def get_computer_move2(self, marker) -> int:
 

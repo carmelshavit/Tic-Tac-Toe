@@ -5,9 +5,9 @@ class Board:
     EMPTY_CELL_VALUE = None
     SIZE_BOARD = 3
 
-    def __init__(self,board_matrix = None):
+    def __init__(self, board_matrix=None):
         if board_matrix == None:
-            self._board_matrix =self._create_new_board()
+            self._board_matrix = self._create_new_board()
         else:
             self._board_matrix = board_matrix
 
@@ -22,10 +22,11 @@ class Board:
         column = self.get_column(cell_id)
         self._board_matrix[row][column] = value
 
-    def get_value_from_cell_id(self,cell_id)-> Any:
+    def get_value_from_cell_id(self, cell_id) -> Any:
         row = self.get_row(cell_id)
         column = self.get_column(cell_id)
         return self._board_matrix[row][column]
+
     def is_cell_in_board(self, cell_id: int) -> bool:
         return 1 <= cell_id <= 9
 
@@ -53,7 +54,8 @@ class Board:
         for cell_value in row:
             value_row.append(cell_value)
         return value_row
-# assert board.get_value_row()==["O","",""]
+
+    # assert board.get_value_row()==["O","",""]
     def get_column(self, cell_id: int) -> int:  # input-1 %3
         if cell_id in (1, 4, 7):
             return 0
@@ -121,7 +123,6 @@ class Board:
             [Board.EMPTY_CELL_VALUE for _ in range(3)]
             for _ in range(3)
         ]
-
 
 
 board = Board()

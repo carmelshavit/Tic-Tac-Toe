@@ -81,6 +81,7 @@ class TicTacGame:
         # condition for check if both players are computer. if true: return player1 to start
         if self.set_players_for_game(False, False, 'X', 'O'):
             return self.player1
+        if
         while True:
             marker = input("Choose 'X' or 'O' ")
             # TODO: Use set_players_for_game
